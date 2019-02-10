@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css" />
+</head>
+<body>
+<div class="columns">
+    <div class="column is-one-quarter">
+        <input id="player1" class="input is-medium" type="text" placeholder="Joueur 1">
+    </div>
+    <div class="column is-narrow">
+        <p>VS</p>
+    </div>
+    <div class="column is-one-quarter">
+        <input id="player2" class="input is-medium" type="text" placeholder="Joueur 2">
+    </div>
+    <div class="column is-one-fifth">
+        <button id="add_game" onclick="addNewGame()" class="button is-medium is-info" type="button" style="padding: 20px 50px">Ajouter</button>
+    </div>
+    <div class="column"></div>
+</div>
+<div class="columns box">
+    <ul id="games_list"></ul>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  let socket = io()
+    function addNewGame() {
+      let player1 = document.getElementById('player1').value
+      let player2 = document.getElementById('player2').value
+      socket.emit('newGame', {player1: player1, player2: player2})
+        //socket.emit('addGame', '')
+    }
+    function deleteGame(id) {
+      socket.emit('deleteGame', id)
+    }
+    function toggleGame(id) {
+      socket.emit('toggleGame', id)
+    }
+  socket.on('news', function (data) {
+    console.log(data);
+  });
+  socket.on('newGame', (data) => {
+    document.getElementById('games_list').innerHTML += `<li class="column" id=${data.id}><label class="checkbox"><input id="checkbox${data.id}" type="checkbox" onclick="toggleGame(${data.id})">${data.player1} vs ${data.player2}</label><button class="button is-small" onclick="deleteGame(${data.id})">Supprimer</button></li>`
+    console.log(data)
+  });
+  socket.on('deleteGame', (data) => {
+    console.log(data)
+    let nodeToDelete = document.getElementById(data)
+    while (nodeToDelete.firstChild) {
+      nodeToDelete.removeChild(nodeToDelete.firstChild);
+    }
+  });
+  socket.on('toggleGame', (data) => {
+    let checkboxToToggle = document.getElementById(`checkbox${data}`);
+    checkboxToToggle.checked = !checkboxToToggle.checked;
+  });
+</script>
+</body>
+</html>
