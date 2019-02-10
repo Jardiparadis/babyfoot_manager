@@ -43,19 +43,27 @@
     console.log(data);
   });
   socket.on('newGame', (data) => {
-    document.getElementById('games_list').innerHTML += `<li class="column" id=${data.id}><label class="checkbox"><input id="checkbox${data.id}" type="checkbox" onclick="toggleGame(${data.id})">${data.player1} vs ${data.player2}</label><button class="button is-small" onclick="deleteGame(${data.id})">Supprimer</button></li>`
+    let checkedState = data.state ? 'checked="checked"' : ''
+    let elementToAdd = `<li class="column" id=${data.id}>
+                            <label class="checkbox">
+                                <input id="checkbox${data.id}" ${checkedState} type="checkbox" onclick="toggleGame(${data.id})">
+                                ${data.player1} vs ${data.player2}
+                            </label>
+                            <button class="button is-small" onclick="deleteGame(${data.id})">Supprimer</button>
+                       </li>`
+    document.getElementById('games_list').innerHTML += elementToAdd
     console.log(data)
   });
   socket.on('deleteGame', (data) => {
     console.log(data)
     let nodeToDelete = document.getElementById(data)
     while (nodeToDelete.firstChild) {
-      nodeToDelete.removeChild(nodeToDelete.firstChild);
+      nodeToDelete.removeChild(nodeToDelete.firstChild)
     }
   });
   socket.on('toggleGame', (data) => {
-    let checkboxToToggle = document.getElementById(`checkbox${data}`);
-    checkboxToToggle.checked = !checkboxToToggle.checked;
+    let checkboxToToggle = document.getElementById(`checkbox${data}`)
+    checkboxToToggle.checked = !checkboxToToggle.checked
   });
 </script>
 </body>

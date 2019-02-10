@@ -15,7 +15,7 @@ io.on('connection', function (socket) {
   db.getAllGames()
     .then((data) => {
       for (const game of data) {
-        io.sockets.emit('newGame', { id: game.id, player1: game.players[0], player2: game.players[1] })
+        socket.emit('newGame', { id: game.id, state: game.state, player1: game.players[0], player2: game.players[1] })
       }
       console.log(data)
     })
@@ -24,7 +24,7 @@ io.on('connection', function (socket) {
     let player2Name = data.player2
     db.createNewGame(player1Name, player2Name)
       .then((data) => {
-        io.sockets.emit('newGame', { id: data[0].id, player1: player1Name, player2: player2Name })
+        io.sockets.emit('newGame', { id: data[0].id, state: true, player1: player1Name, player2: player2Name })
       })
   })
   socket.on('deleteGame', data => {
