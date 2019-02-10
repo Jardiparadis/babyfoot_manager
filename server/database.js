@@ -56,5 +56,16 @@ module.exports = {
           reject(err)
         })
     })
+  },
+  getAllGames () {
+    return new Promise((resolve, reject) => {
+      this.database.any(`SELECT * FROM "Games"`)
+        .then(data => {
+          resolve(data)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
   }
 }

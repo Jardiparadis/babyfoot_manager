@@ -12,7 +12,13 @@ const serverPort = 3100
 db.connectToDatabase()
 
 io.on('connection', function (socket) {
-  //socket.emit('news', '<b>Salut<b>')
+  db.getAllGames()
+    .then((data) => {
+      for (const game of data) {
+        io.sockets.emit('newGame', { id: game.id, player1: game.players[0], player2: game.players[1] })
+      }
+      console.log(data)
+    })
   socket.on('newGame', data => {
     let player1Name = data.player1
     let player2Name = data.player2
@@ -40,4 +46,3 @@ io.on('connection', function (socket) {
 app.listen(serverPort, () => {
   console.log(`Server listening on port ${app.address().port}.`)
 })
-// make api folder
