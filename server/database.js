@@ -59,7 +59,7 @@ module.exports = {
   },
   getAllGames () {
     return new Promise((resolve, reject) => {
-      this.database.any(`SELECT * FROM "Games"`)
+      this.database.any(`SELECT * FROM "Games" ORDER BY "dateCreated"`)
         .then(data => {
           resolve(data)
         })
