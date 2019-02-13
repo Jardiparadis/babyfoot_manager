@@ -25,12 +25,14 @@
     <div class="column is-half">
         <fieldset style="text-overflow: clip; border-radius: 5px">
             <legend class="is-title column box is-narrow" style="border: 1px #209cee solid; background-color: #209cee; color: white">Les parties</legend>
+            <div id="nbActiveGames" class="box column is-narrow" style="float: right; margin-top: -70px; border: 1px #209cee solid; background-color: #209cee; color: white">0</div>
             <table id="games_list" style="margin-left: 30px"></table>
         </fieldset>
     </div>
 </div>
 <script src="/socket.io/socket.io.js"></script>
 <script>
+  let activeGames = 0
   let socket = io()
     function addNewGame() {
       let player1 = document.getElementById('player1').value
@@ -43,6 +45,15 @@
     }
     function toggleGame(id) {
       socket.emit('toggleGame', id)
+      let checkboxToToggle = document.getElementById(`checkbox${id}`)
+      if (checkboxToToggle.checked)
+        activeGames += 1
+      else
+        activeGames -= 1
+      updateNumberOfActiveGames()
+    }
+    function updateNumberOfActiveGames() {
+      document.getElementById('nbActiveGames').innerText = activeGames
     }
   socket.on('news', function (data) {
     console.log(data);
@@ -61,11 +72,19 @@
                             </td>
                         </tr>`
     document.getElementById('games_list').innerHTML += elementToAdd
+    activeGames += 1
+    updateNumberOfActiveGames()
     console.log(data)
   });
   socket.on('deleteGame', (data) => {
     console.log(data)
     let nodeToDelete = document.getElementById(data)
+    let checkBox = document.getElementById(`checkbox${data}`)
+    if (checkBox.checked)
+    {
+      activeGames -= 1
+      updateNumberOfActiveGames()
+    }
     while (nodeToDelete.firstChild) {
       nodeToDelete.removeChild(nodeToDelete.firstChild)
     }
@@ -73,6 +92,12 @@
   socket.on('toggleGame', (data) => {
     let checkboxToToggle = document.getElementById(`checkbox${data}`)
     checkboxToToggle.checked = !checkboxToToggle.checked
+    if (checkboxToToggle.checked)
+      activeGames += 1
+    else
+      activeGames -= 1
+    updateNumberOfActiveGames()
+    console.log("updating")
   });
 </script>
 </body>
