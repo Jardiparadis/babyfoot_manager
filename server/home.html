@@ -51,9 +51,21 @@
       else
         activeGames -= 1
       updateNumberOfActiveGames()
+      updateVisualActiveGame(id)
     }
     function updateNumberOfActiveGames() {
       document.getElementById('nbActiveGames').innerText = activeGames
+    }
+    function updateVisualActiveGame(id) {
+      let checkbox = document.getElementById(`checkbox${id}`)
+      let checkboxLabel = document.getElementById(`checkbox_label${id}`)
+
+      if (checkbox.checked) {
+        checkboxLabel.style.color = 'black'
+      }
+      else {
+        checkboxLabel.style.color = 'grey'
+      }
     }
   socket.on('news', function (data) {
     console.log(data);
@@ -62,7 +74,7 @@
     let checkedState = data.state ? 'checked="checked"' : ''
     let elementToAdd = `<tr id=${data.id}>
                             <td>
-                                <label class="checkbox">
+                                <label id="checkbox_label${data.id}" class="checkbox">
                                     <input id="checkbox${data.id}" ${checkedState} type="checkbox" onclick="toggleGame(${data.id})">
                                     ${data.player1} vs ${data.player2}
                                 </label>
@@ -74,6 +86,7 @@
     document.getElementById('games_list').innerHTML += elementToAdd
     activeGames += 1
     updateNumberOfActiveGames()
+    updateVisualActiveGame(data.id)
     console.log(data)
   });
   socket.on('deleteGame', (data) => {
@@ -84,6 +97,7 @@
     {
       activeGames -= 1
       updateNumberOfActiveGames()
+      updateVisualActiveGame(data.id)
     }
     while (nodeToDelete.firstChild) {
       nodeToDelete.removeChild(nodeToDelete.firstChild)
@@ -97,6 +111,7 @@
     else
       activeGames -= 1
     updateNumberOfActiveGames()
+    updateVisualActiveGame(data.id)
     console.log("updating")
   });
 </script>
