@@ -1,9 +1,4 @@
-const app = require('http').createServer((req, res) => {
-  fs.readFile(__dirname + '/home.html', (err, data) => {
-    res.writeHead(200)
-    res.end(data)
-  })
-})
+const app = require('http').createServer(newConnectionHandler)
 const io = require('socket.io')(app)
 const fs = require('fs')
 const db = require('./database')
@@ -11,13 +6,28 @@ const serverPort = 3100
 
 db.connectToDatabase()
 
+/**
+ * Return the home page to the client on connection
+ * @param req Request object
+ * @param res Response object
+ */
+function newConnectionHandler(req, res) {
+  fs.readFile(__dirname + '/home.html', (err, data) => {
+    res.writeHead(200)
+    res.end(data)
+  })
+}
+
+/**
+ * On client connection, get the list of all games, and
+ * define all reactions to the different events which can be triggered by the client
+ */
 io.on('connection', function (socket) {
   db.getAllGames()
     .then((data) => {
       for (const game of data) {
         socket.emit('newGame', { id: game.id, state: game.state, player1: game.players[0], player2: game.players[1] })
       }
-      console.log(data)
     })
   socket.on('newGame', data => {
     let player1Name = data.player1
@@ -28,12 +38,10 @@ io.on('connection', function (socket) {
       })
   })
   socket.on('deleteGame', data => {
-    console.log(data)
     db.deleteGame(data)
       .then((data) => {
         io.sockets.emit('deleteGame', data[0].id)
       })
-    console.log(data)
   })
   socket.on('toggleGame', data => {
     db.updateGameState(data)
