@@ -1,6 +1,7 @@
 const app = require('http').createServer(newConnectionHandler)
 const io = require('socket.io')(app)
 const fs = require('fs')
+const path = require('path')
 const db = require('./database')
 const serverPort = 3100
 
@@ -11,8 +12,13 @@ db.connectToDatabase()
  * @param req Request object
  * @param res Response object
  */
-function newConnectionHandler(req, res) {
-  fs.readFile(__dirname + '/home.html', (err, data) => {
+function newConnectionHandler (req, res) {
+  fs.readFile(path.join('app', 'home.html'), (err, data) => {
+    if (err) {
+      res.writeHead(404)
+      res.end('Cannot get html file')
+      return
+    }
     res.writeHead(200)
     res.end(data)
   })
