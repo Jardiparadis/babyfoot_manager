@@ -1,0 +1,37 @@
+{
+  "name": "babyfoot_manager",
+  "version": "1.0.0",
+  "description": "test for ideolys",
+  "main": "index.js",
+  "scripts": {
+    "run": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jardiparadis/babyfoot_manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jardiparadis/babyfoot_manager/issues"
+  },
+  "homepage": "https://github.com/Jardiparadis/babyfoot_manager#readme",
+  "dependencies": {
+    "@types/socket.io-client": "^1.4.32",
+    "eslint": "^5.13.0",
+    "eslint-config": "^0.3.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "express": "^4.16.4",
+    "http": "0.0.0",
+    "nodemon": "^1.18.10",
+    "pg": "^7.8.0",
+    "pgp": "^0.1.0",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
+  }
+}

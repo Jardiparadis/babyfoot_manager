@@ -1,5 +1,5 @@
 const app = require('http').createServer((req, res) => {
-  fs.readFile('./server/home.html', (err, data) => {
+  fs.readFile(__dirname + '/home.html', (err, data) => {
     res.writeHead(200)
     res.end(data)
   })

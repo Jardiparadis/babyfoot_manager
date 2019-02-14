@@ -14,7 +14,7 @@ services:
 
   server:
     build:
-      context: ./server
+      context: ./app
       dockerfile: Dockerfile
     volumes:
       - .:/home/node

@@ -97,7 +97,6 @@
     {
       activeGames -= 1
       updateNumberOfActiveGames()
-      updateVisualActiveGame(data.id)
     }
     while (nodeToDelete.firstChild) {
       nodeToDelete.removeChild(nodeToDelete.firstChild)
@@ -117,3 +116,4 @@
 </script>
 </body>
 </html>
+<!-- TODO fix number of active games when reloading or opening new page-->
