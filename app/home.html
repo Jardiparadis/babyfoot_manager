@@ -24,9 +24,11 @@
 <div class="columns">
   <div class="column is-half">
     <fieldset style="text-overflow: clip; border-radius: 5px">
-      <legend class="is-title column box is-narrow" style="border: 1px #209cee solid; background-color: #209cee; color: white">Les parties</legend>
-      <div id="nbActiveGames" class="box column is-narrow" style="float: right; margin-top: -70px; border: 1px #209cee solid; background-color: #209cee; color: white">0</div>
-      <table style="margin-left: 30px"><tbody id="games_list" ></tbody></table>
+      <legend class="is-title column box is-narrow" style="border: 1px #209cee solid; background-color: #209cee; color: white; margin-left: 10px">Les parties</legend>
+      <div id="nbActiveGames" class="box column is-narrow" style="float: right; margin-right: 10px; margin-top: -70px; border: 1px #209cee solid; background-color: #209cee; color: white">0</div>
+      <table style="margin-left: 30px">
+        <tbody id="games_list" ></tbody>
+      </table>
     </fieldset>
   </div>
 </div>
@@ -112,8 +114,9 @@
                             </td>
                         </tr>`
     document.getElementById('games_list').innerHTML += elementToAdd
-    if (data.state === true)
+    if (data.state === true) {
       activeGames += 1
+    }
     updateNumberOfActiveGames()
     updateVisualActiveGame(data.id)
   });
