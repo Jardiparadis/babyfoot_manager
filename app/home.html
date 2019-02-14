@@ -59,7 +59,6 @@
   function toggleGame(id) {
     socket.emit('toggleGame', id)
     let checkboxToToggle = document.getElementById(`checkbox${id}`)
-    console.log(checkboxToToggle)
     if (checkboxToToggle.hasAttribute('checked') === false) {
       checkboxToToggle.setAttribute('checked', '')
       checkboxToToggle.checkbox = true
@@ -88,8 +87,6 @@
     let checkbox = document.getElementById(`checkbox${id}`)
     let checkboxLabel = document.getElementById(`checkbox_label${id}`)
 
-    console.log(id)
-    console.log(`checkbox${id}`)
     if (checkbox.hasAttribute('checked') === true) {
       checkboxLabel.style.color = 'black'
     }
@@ -140,7 +137,6 @@
    * When the toggleGame event is caught, update the checkbox state associated with the game id
    */
   socket.on('toggleGame', (data) => {
-    console.log('test')
     let checkboxToToggle = document.getElementById(`checkbox${data}`)
     if (checkboxToToggle.hasAttribute('checked') === false) {
       checkboxToToggle.setAttribute('checked', '')
@@ -157,4 +153,3 @@
 </script>
 </body>
 </html>
-<!-- TODO fix number of active games when reloading or opening new page-->
