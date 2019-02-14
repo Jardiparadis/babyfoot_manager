@@ -26,7 +26,7 @@
     <fieldset style="text-overflow: clip; border-radius: 5px">
       <legend class="is-title column box is-narrow" style="border: 1px #209cee solid; background-color: #209cee; color: white">Les parties</legend>
       <div id="nbActiveGames" class="box column is-narrow" style="float: right; margin-top: -70px; border: 1px #209cee solid; background-color: #209cee; color: white">0</div>
-      <table id="games_list" style="margin-left: 30px"></table>
+      <table style="margin-left: 30px"><tbody id="games_list" ></tbody></table>
     </fieldset>
   </div>
 </div>
@@ -59,10 +59,16 @@
   function toggleGame(id) {
     socket.emit('toggleGame', id)
     let checkboxToToggle = document.getElementById(`checkbox${id}`)
-    if (checkboxToToggle.checked)
+    console.log(checkboxToToggle)
+    if (checkboxToToggle.hasAttribute('checked') === false) {
+      checkboxToToggle.setAttribute('checked', '')
+      checkboxToToggle.checkbox = true
       activeGames += 1
-    else
+    }
+    else {
+      checkboxToToggle.removeAttribute('checked')
       activeGames -= 1
+    }
     updateNumberOfActiveGames()
     updateVisualActiveGame(id)
   }
@@ -82,7 +88,9 @@
     let checkbox = document.getElementById(`checkbox${id}`)
     let checkboxLabel = document.getElementById(`checkbox_label${id}`)
 
-    if (checkbox.checked) {
+    console.log(id)
+    console.log(`checkbox${id}`)
+    if (checkbox.hasAttribute('checked') === true) {
       checkboxLabel.style.color = 'black'
     }
     else {
@@ -107,7 +115,8 @@
                             </td>
                         </tr>`
     document.getElementById('games_list').innerHTML += elementToAdd
-    activeGames += 1
+    if (data.state === true)
+      activeGames += 1
     updateNumberOfActiveGames()
     updateVisualActiveGame(data.id)
   });
@@ -118,8 +127,7 @@
   socket.on('deleteGame', (data) => {
     let nodeToDelete = document.getElementById(data)
     let checkBox = document.getElementById(`checkbox${data}`)
-    if (checkBox.checked)
-    {
+    if (checkBox.hasAttribute('checked') === true) {
       activeGames -= 1
       updateNumberOfActiveGames()
     }
@@ -132,14 +140,19 @@
    * When the toggleGame event is caught, update the checkbox state associated with the game id
    */
   socket.on('toggleGame', (data) => {
+    console.log('test')
     let checkboxToToggle = document.getElementById(`checkbox${data}`)
-    checkboxToToggle.checked = !checkboxToToggle.checked
-    if (checkboxToToggle.checked)
+    if (checkboxToToggle.hasAttribute('checked') === false) {
+      checkboxToToggle.setAttribute('checked', '')
+      checkboxToToggle.checked = true
       activeGames += 1
-    else
+    }
+    else {
+      checkboxToToggle.removeAttribute('checked')
       activeGames -= 1
+    }
     updateNumberOfActiveGames()
-    updateVisualActiveGame(data.id)
+    updateVisualActiveGame(data)
   });
 </script>
 </body>
