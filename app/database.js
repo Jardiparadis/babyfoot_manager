@@ -7,6 +7,11 @@ const connectionDatas = {
   database: 'babyfoot'
 }
 
+/**
+ * Try a request on the database to check if connected
+ * @param database The pgp database object to test
+ * @private
+ */
 function _checkDatabaseConnection (database) {
   database.proc('version')
     .then(data => {
@@ -20,13 +25,23 @@ function _checkDatabaseConnection (database) {
 
 module.exports = {
   database: null,
+
+  /* Connect to the database with the settings of the connectionDatas object */
   connectToDatabase () {
     this.database = pgp(connectionDatas)
     _checkDatabaseConnection(this.database)
   },
-  createNewGame (player1, player2) {
+
+  /**
+   * Insert a new game into the database,
+   * and resolve the promise with the id of the newly created game as parameter
+   * @param player1Name The first player name
+   * @param player2Name The second player name
+   * @returns {Promise<any>}
+   */
+  createNewGame (player1Name, player2Name) {
     return new Promise((resolve, reject) => {
-      this.database.any(`INSERT INTO "Games" ("state", "players") VALUES (true, ARRAY['${player1}', '${player2}']::TEXT[]) RETURNING id;`)
+      this.database.any(`INSERT INTO "Games" ("state", "players") VALUES (true, ARRAY['${player1Name}', '${player2Name}']::TEXT[]) RETURNING id;`)
         .then(data => {
           resolve(data)
         })
@@ -35,6 +50,13 @@ module.exports = {
         })
     })
   },
+
+  /**
+   * Delete a game from the database by his id
+   * and resolve the promise with the id of the deleted game as parameter
+   * @param id The id of the game to delete
+   * @returns {Promise<any>}
+   */
   deleteGame (id) {
     return new Promise((resolve, reject) => {
       this.database.any(`DELETE FROM "Games" WHERE id=${id} RETURNING id;`)
@@ -46,6 +68,13 @@ module.exports = {
         })
     })
   },
+
+  /**
+   * Update the state of the game (enable/disabled)
+   * and resolve the promise with the id of the updated game as parameter
+   * @param id Id of the game to update
+   * @returns {Promise<any>}
+   */
   updateGameState (id) {
     return new Promise((resolve, reject) => {
       this.database.any(`UPDATE "Games" set "state"=NOT "state" WHERE id=${id} RETURNING id;`)
@@ -57,6 +86,11 @@ module.exports = {
         })
     })
   },
+
+  /**
+   * Return all games in the database
+   * @returns {Promise<any>}
+   */
   getAllGames () {
     return new Promise((resolve, reject) => {
       this.database.any(`SELECT * FROM "Games" ORDER BY "dateCreated"`)
