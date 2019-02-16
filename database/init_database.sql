@@ -1,6 +1,6 @@
-create table "Games" (
-    "id" serial  primary key not null,
-    "state" boolean not null,
+CREATE TABLE "Game" (
+    "id" serial  PRIMARY KEY NOT NULL,
+    "state" boolean NOT NULL,
     "players" text[2],
-    "dateCreated" timestamp with time zone not null default (now() at time zone 'utc')
+    "dateCreated" timestamp WITH TIME ZONE NOT NULL DEFAULT (NOW() AT TIME ZONE 'utc')
 )
