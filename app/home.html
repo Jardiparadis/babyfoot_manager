@@ -64,11 +64,11 @@
     if (checkboxToToggle.hasAttribute('checked') === false) {
       checkboxToToggle.setAttribute('checked', '')
       checkboxToToggle.checkbox = true
-      activeGames += 1
+      activeGames -= 1
     }
     else {
       checkboxToToggle.removeAttribute('checked')
-      activeGames -= 1
+      activeGames += 1
     }
     updateNumberOfActiveGames()
     updateVisualActiveGame(id)
@@ -89,7 +89,7 @@
     let checkbox = document.getElementById(`checkbox${id}`)
     let checkboxLabel = document.getElementById(`checkbox_label${id}`)
 
-    if (checkbox.hasAttribute('checked') === true) {
+    if (checkbox.hasAttribute('checked') === false) {
       checkboxLabel.style.color = 'black'
     }
     else {
@@ -101,7 +101,7 @@
    * When the newGame event is caught, add a new line to the games list table
    */
   socket.on('newGame', (data) => {
-    let checkedState = data.state ? 'checked="checked"' : ''
+    let checkedState = data.state ? '' : 'checked="checked"'
     let elementToAdd = `<tr id=${data.id}>
                           <td>
                             <label id="checkbox_label${data.id}" class="checkbox">
@@ -127,7 +127,7 @@
   socket.on('deleteGame', (data) => {
     let nodeToDelete = document.getElementById(data)
     let checkBox = document.getElementById(`checkbox${data}`)
-    if (checkBox.hasAttribute('checked') === true) {
+    if (checkBox.hasAttribute('checked') === false) {
       activeGames -= 1
       updateNumberOfActiveGames()
     }
@@ -144,11 +144,11 @@
     if (checkboxToToggle.hasAttribute('checked') === false) {
       checkboxToToggle.setAttribute('checked', '')
       checkboxToToggle.checked = true
-      activeGames += 1
+      activeGames -= 1
     }
     else {
       checkboxToToggle.removeAttribute('checked')
-      activeGames -= 1
+      activeGames += 1
     }
     updateNumberOfActiveGames()
     updateVisualActiveGame(data)
