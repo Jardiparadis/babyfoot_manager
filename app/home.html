@@ -4,6 +4,22 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css" />
+  <style>
+    #nb_active_games_legend {
+      border: 1px #209cee solid;
+      background-color: #209cee;
+      color: white;
+      margin-left: 10px;
+    }
+    #nb_active_games_container {
+      float: right;
+      margin-right: 10px;
+      margin-top: -70px;
+      border: 1px #209cee solid;
+      background-color: #209cee;
+      color: white;
+    }
+  </style>
 </head>
 <body style="margin-top: 50px; margin-left: 20px">
 <div class="columns">
@@ -24,8 +40,8 @@
 <div class="columns">
   <div class="column is-half">
     <fieldset style="text-overflow: clip; border-radius: 5px">
-      <legend class="is-title column box is-narrow" style="border: 1px #209cee solid; background-color: #209cee; color: white; margin-left: 10px">Les parties</legend>
-      <div id="nbActiveGames" class="box column is-narrow" style="float: right; margin-right: 10px; margin-top: -70px; border: 1px #209cee solid; background-color: #209cee; color: white">0</div>
+      <legend id="nb_active_games_legend" class="is-title column box is-narrow">Les parties</legend>
+      <div id="nb_active_games_container" class="box column is-narrow">0</div>
       <table style="margin-left: 30px">
         <tbody id="games_list" ></tbody>
       </table>
