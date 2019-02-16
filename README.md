@@ -30,4 +30,20 @@ While the application is running, you can start using the babyfoot manager by br
 ```
 
 ## Testing
-in progress
+To run the tests, use the following command to launch the application in development mode:
+```sh
+docker-compose -f dev.docker-compose.yml up -d
+``` 
+Then, you have to execute a bash in the server's container with the command:
+```sh
+docker exec -it <CONTAINER ID> bash
+```
+The CONTAINER ID can be obtained through the command
+```sh
+docker ps
+```
+Take the CONTAINER ID of the container named **babyfoot_manager_server_1**.  
+Finally, all you have to do is using the command
+```sh
+npm test
+``` 
