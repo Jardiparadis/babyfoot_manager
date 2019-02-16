@@ -16,7 +16,7 @@ function newConnectionHandler (req, res) {
   fs.readFile(path.join('app', 'home.html'), (err, data) => {
     if (err) {
       res.writeHead(404)
-      res.end('Cannot get html file')
+      res.end('Cannot get the html file')
       return
     }
     res.writeHead(200)
