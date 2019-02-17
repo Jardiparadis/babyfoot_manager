@@ -49,7 +49,7 @@ io.on('connection', function (socket) {
     db.createNewGame(player1Name, player2Name)
       .then((data) => {
         io.sockets.emit('newGame', {
-          id: data[0].id,
+          id: data.id,
           state: true,
           player1: player1Name,
           player2: player2Name
@@ -63,7 +63,7 @@ io.on('connection', function (socket) {
   socket.on('deleteGame', data => {
     db.deleteGame(data)
       .then((data) => {
-        io.sockets.emit('deleteGame', data[0].id)
+        io.sockets.emit('deleteGame', data.id)
       })
   })
 
@@ -74,7 +74,7 @@ io.on('connection', function (socket) {
   socket.on('toggleGame', data => {
     db.updateGameState(data)
       .then((data) => {
-        socket.broadcast.emit('toggleGame', data[0].id)
+        socket.broadcast.emit('toggleGame', data.id)
       })
   })
 })

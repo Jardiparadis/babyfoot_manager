@@ -41,7 +41,7 @@ module.exports = {
    */
   createNewGame (player1Name, player2Name) {
     return new Promise((resolve, reject) => {
-      this.database.any(`INSERT INTO "Game" ("state", "players") VALUES (true, ARRAY['${player1Name}', '${player2Name}']::TEXT[]) RETURNING id;`)
+      this.database.one(`INSERT INTO "Game" ("state", "players") VALUES (true, ARRAY['${player1Name}', '${player2Name}']::TEXT[]) RETURNING id;`)
         .then(data => {
           resolve(data)
         })
@@ -59,7 +59,7 @@ module.exports = {
    */
   deleteGame (id) {
     return new Promise((resolve, reject) => {
-      this.database.any(`DELETE FROM "Game" WHERE id=${id} RETURNING id;`)
+      this.database.one(`DELETE FROM "Game" WHERE id=${id} RETURNING id;`)
         .then(data => {
           resolve(data)
         })
@@ -77,7 +77,7 @@ module.exports = {
    */
   updateGameState (id) {
     return new Promise((resolve, reject) => {
-      this.database.any(`UPDATE "Game" set "state"=NOT "state" WHERE id=${id} RETURNING id;`)
+      this.database.one(`UPDATE "Game" set "state"=NOT "state" WHERE id=${id} RETURNING id;`)
         .then(data => {
           resolve(data)
         })
