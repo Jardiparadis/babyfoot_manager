@@ -4,7 +4,7 @@
   "description": "test for ideolys",
   "main": "index.js",
   "scripts": {
-    "run": "node ./app/index.js",
+    "start": "node ./app/index.js",
     "test": "mocha"
   },
   "repository": {
