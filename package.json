@@ -17,8 +17,7 @@
     "url": "https://github.com/Jardiparadis/babyfoot_manager/issues"
   },
   "homepage": "https://github.com/Jardiparadis/babyfoot_manager#readme",
-  "dependencies": {
-    "@types/socket.io-client": "^1.4.32",
+  "devDependencies": {
     "eslint": "^5.13.0",
     "eslint-config": "^0.3.0",
     "eslint-config-standard": "^12.0.0",
@@ -26,13 +25,11 @@
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "express": "^4.16.4",
+    "mocha": "^5.2.0"
+  },
+  "dependencies": {
     "http": "0.0.0",
-    "mocha": "^5.2.0",
-    "nodemon": "^1.18.10",
-    "pg": "^7.8.0",
     "pgp": "^0.1.0",
-    "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0"
+    "socket.io": "^2.2.0"
   }
 }
