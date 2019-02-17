@@ -14,7 +14,7 @@ const connectionDatas = {
  */
 function _checkDatabaseConnection (database) {
   database.proc('version')
-    .then(data => {
+    .then(() => {
       console.log('Database successfully connected')
     })
     .catch(error => {

@@ -93,7 +93,7 @@
   /**
    * Update the number of active game
    */
-  function updateNumberOfActiveGames() {
+  function updateNumberOfActiveGames () {
     document.getElementById('nb_active_games_container').innerText = activeGames
   }
 
@@ -101,7 +101,7 @@
    * Update the color font of the game, depending of the state of the associated checkbox
    * @param id Id of the game to update
    */
-  function updateVisualActiveGame(id) {
+  function updateVisualActiveGame (id) {
     let checkbox = document.getElementById(`checkbox${id}`)
     let checkboxLabel = document.getElementById(`checkbox_label${id}`)
 
