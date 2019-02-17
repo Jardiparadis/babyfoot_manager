@@ -25,9 +25,7 @@ Then, to launch the database and the application, just type this command:
 docker-compose up
 ```
 While the application is running, you can start using the babyfoot manager by browsing to
-```
-127.0.0.1:8089
-```
+`http://localhost:8089`
 
 ## Testing
 In order to run the tests, use the following command to launch the application in development mode:
