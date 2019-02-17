@@ -39,10 +39,10 @@ io.on('connection', function (socket) {
         })
       }
     })
+
   /**
    * When a client create a new game, add it to the database, and broadcast the info to all clients
    */
-
   socket.on('newGame', data => {
     let player1Name = data.player1
     let player2Name = data.player2
@@ -56,10 +56,10 @@ io.on('connection', function (socket) {
         })
       })
   })
+
   /**
    * When a client delete a game, delete it from the database, and broadcast the info to all clients
    */
-
   socket.on('deleteGame', data => {
     db.deleteGame(data)
       .then((data) => {
