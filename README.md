@@ -16,7 +16,7 @@ Docker-compose is also used, to ease the application deployment.
 To install Docker, go on https://docs.docker.com/install/. 
 
 ## Running the application
-To run the application, first, you have to install dependencies first with the following command:
+To run the application, first, you have to install dependencies with the following command:
 ```sh
 npm install
 ```
@@ -28,6 +28,10 @@ While the application is running, you can start using the babyfoot manager by br
 `http://localhost:8089`
 
 ## Testing
+First, you have to install dependencies with the following command:
+```sh
+npm install
+```
 In order to run the tests, use the following command to launch the application in development mode:
 ```sh
 docker-compose -f dev.docker-compose.yml up -d --build
